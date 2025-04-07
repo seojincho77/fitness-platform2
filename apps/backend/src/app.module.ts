@@ -1,9 +1,45 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { UsersModule } from './users/users.module';
+import { RoutinesModule } from './routines/routines.module';
+import { WorkoutsModule } from './workouts/workouts.module';
+import { BodyRecordsModule } from './body-records/body-records.module';
+import { PostsModule } from './posts/posts.module';
+import { ExercisesModule } from './exercises/exercises.module';
 
 @Module({
-  imports: [],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
+
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      host: process.env.DB_HOST || 'localhost',
+      port: +(process.env.DB_PORT || 5432),
+      username: process.env.DB_USERNAME || 'postgres',
+      password: process.env.DB_PASSWORD || 'Bioshock3$',
+      database: process.env.DB_DATABASE || 'fitness_db',
+      entities: [__dirname + '/**/*.entity{.ts,.js}'],
+      synchronize: false,
+      logging: true,
+    }),
+
+        UsersModule,
+
+        RoutinesModule,
+
+        WorkoutsModule,
+
+        BodyRecordsModule,
+
+        PostsModule,
+
+        ExercisesModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
