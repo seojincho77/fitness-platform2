@@ -9,6 +9,7 @@ import { WorkoutsModule } from './workouts/workouts.module';
 import { BodyRecordsModule } from './body-records/body-records.module';
 import { PostsModule } from './posts/posts.module';
 import { ExercisesModule } from './exercises/exercises.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -39,6 +40,8 @@ import { ExercisesModule } from './exercises/exercises.module';
         PostsModule,
 
         ExercisesModule,
+
+        AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
