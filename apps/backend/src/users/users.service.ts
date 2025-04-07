@@ -19,6 +19,10 @@ export class UsersService {
     return this.userRepo.save(user);
   }
 
+  async findByEmail(email: string) {
+    return this.userRepo.findOne({ where: { email } });
+  }
+
   async findOne(id: number) {
     return this.userRepo.findOne({ where: { id } });
   }
