@@ -4,6 +4,9 @@ import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
 import { Follow } from './entities/follow.entity';
 import { CreateUserDto } from './dto/create-user.dto';
+import { NotFoundException } from '@nestjs/common';
+import * as bcrypt from 'bcryptjs';
+
 
 @Injectable()
 export class UsersService {
@@ -15,6 +18,9 @@ export class UsersService {
   ) {}
 
   async createUser(dto: CreateUserDto): Promise<User> {
+    const salt = await bcrypt.genSalt();
+    dto.password = await bcrypt.hash(dto.password, salt);
+
     const user = this.userRepo.create(dto);
     return this.userRepo.save(user);
   }
@@ -31,9 +37,19 @@ export class UsersService {
     return this.userRepo.find();
   }
 
-  // 팔로우, 언팔로우 등 followRepo 관련 메서드도 작성 가능
+  async remove(id: number) {
+    const user = await this.userRepo.findOne({ where: { id } });
+    if (!user) {
+      throw new NotFoundException(`User with ID=${id} not found`);
+    }
+    return this.userRepo.remove(user);
+  }
+
   async followUser(followerId: number, followingId: number) {
-    const follow = this.followRepo.create({ follower: { id: followerId }, following: { id: followingId } });
+    const follow = this.followRepo.create({
+      follower: { id: followerId },
+      following: { id: followingId },
+    });
     return this.followRepo.save(follow);
   }
 }
