@@ -14,8 +14,8 @@ export class UsersController {
     return this.usersService.createUser(dto);
   }
 
-  @UseGuards(JwtAuthGuard)
   @Get('profile')
+  @UseGuards(JwtAuthGuard)
   getProfile(@Req() req: Request) {
     return req.user; // { userId, email }
     }
