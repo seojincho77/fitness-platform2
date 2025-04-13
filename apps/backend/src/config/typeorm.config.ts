@@ -15,11 +15,11 @@ import { Routine } from '../routines/entities/routine.entity';
 
 export const AppDataSource = new DataSource({
   type: 'postgres',
-  host: 'postgres',          
-  port: 5432,
-  username: 'user',          
-  password: 'pass',
-  database: 'fitness_db',
+  host: process.env.DB_HOST,
+  port: Number(process.env.DB_PORT),
+  username: process.env.DB_USERNAME,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE,
   entities: [User, BodyRecord, Exercise, Post, Routine],
   migrations: ['src/migrations/*.ts'],
   synchronize: false,
