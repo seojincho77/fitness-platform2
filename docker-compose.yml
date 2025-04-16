@@ -15,10 +15,8 @@ services:
     image: postgres:latest
     ports:
       - "5432:5432"
-    environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: pass
-      POSTGRES_DB: fitness_db
+    env_file:
+      - ./apps/backend/.env 
 
   redis:
     image: redis:latest
