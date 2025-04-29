@@ -6,7 +6,7 @@ services:
     ports:
       - "3001:3001"
     env_file:
-      - ./apps/backend/.env
+      - ./apps/backend/.env.docker
     depends_on:
       - postgres
       - redis
@@ -16,7 +16,7 @@ services:
     ports:
       - "5432:5432"
     env_file:
-      - ./apps/backend/.env 
+      - ./apps/backend/.env.docker
 
   redis:
     image: redis:latest
