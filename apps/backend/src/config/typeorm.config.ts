@@ -3,15 +3,19 @@ import * as dotenv from 'dotenv';
 import * as path from 'path';
 
 dotenv.config({
-  path: path.resolve(__dirname, '../../.env'),
+  path: path.resolve(__dirname, '../../.env.docker'),
 });
 
 import { DataSource } from 'typeorm';
 import { User } from '../users/entities/user.entity';
+import { Follow } from '../users/entities/follow.entity';
 import { BodyRecord } from '../body-records/entities/body-record.entity';
 import { Exercise } from '../exercises/entities/exercise.entity';
 import { Post } from '../posts/entities/post.entity';
+import { Like } from '../posts/entities/like.entity';
 import { Routine } from '../routines/entities/routine.entity';
+import { WorkoutSession } from '../workouts/entities/workout-session.entity';
+import { WorkoutSet } from '../workouts/entities/workout-set.entity';
 
 export const AppDataSource = new DataSource({
   type: 'postgres',
@@ -20,7 +24,17 @@ export const AppDataSource = new DataSource({
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
-  entities: [User, BodyRecord, Exercise, Post, Routine],
+  entities: [
+    User,
+    Follow,
+    BodyRecord,
+    Exercise,
+    Post,
+    Like,
+    Routine,
+    WorkoutSession,
+    WorkoutSet,
+  ],
   migrations: ['src/migrations/*.ts'],
   synchronize: false,
 });
