@@ -20,8 +20,8 @@
     "noFallthroughCasesInSwitch": false,
     "strictPropertyInitialization": false,
     "moduleResolution": "node",
-    "esModuleInterop": true,
+    "esModuleInterop": true
   },
-  "include": ["src/**/*.ts", "data-source.ts", "migrations/**/*.ts"],
+  "include": ["src/**/*.ts", "src/data-source.ts", "migrations/**/*.ts"],
   "exclude": ["node_modules", "dist", "**/*.spec.ts", "**/*.test.ts"]
 }
