@@ -7,3 +7,8 @@
 2 프로젝트 클론
 3 .env파일 작성
 4. sudo docker compose up --build
+
+
+### ~주말
+
+API 완성 및 연동 테스트
