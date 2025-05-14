@@ -1,16 +1,24 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
 import { User } from 'src/users/entities/user.entity';
 import { Routine } from 'src/routines/entities/routine.entity';
 
 @Entity('workout_sessions')
 export class WorkoutSession {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('increment')
   id: number;
 
   @ManyToOne(() => User, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'userId' })
   user: User;
 
   @ManyToOne(() => Routine, { onDelete: 'SET NULL', nullable: true })
+  @JoinColumn({ name: 'routineId' })
   routine: Routine | null;
 
   @Column({ type: 'date', default: () => 'CURRENT_DATE' })
@@ -31,3 +39,4 @@ export class WorkoutSession {
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   created_at: Date;
 }
+

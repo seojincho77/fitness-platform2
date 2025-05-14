@@ -1,12 +1,12 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class CreateUsers1746240339713 implements MigrationInterface {
-  name = 'CreateUsers1746240339713';
+export class CreateExercises1746519000000 implements MigrationInterface {
+  name = 'CreateExercises1746519000000';
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'users',
+        name: 'exercises',
         columns: [
           {
             name: 'id',
@@ -16,36 +16,43 @@ export class CreateUsers1746240339713 implements MigrationInterface {
             generationStrategy: 'increment',
           },
           {
-            name: 'email',
+            name: 'name',
             type: 'varchar',
-            isUnique: true,
-            isNullable: false,
           },
           {
-            name: 'password',
+            name: 'muscle_group',
             type: 'varchar',
-            isNullable: false,
+            isNullable: true,
           },
           {
-            name: 'nickname',
+            name: 'type',
             type: 'varchar',
-            isUnique: true,
-            isNullable: false,
+            isNullable: true,
           },
           {
-            name: 'profile_image_url',
+            name: 'difficulty',
+            type: 'varchar',
+            isNullable: true,
+          },
+          {
+            name: 'video_url',
+            type: 'varchar',
+            isNullable: true,
+          },
+          {
+            name: 'image_url',
             type: 'varchar',
             isNullable: true,
           },
           {
             name: 'created_at',
             type: 'timestamp',
-            default: 'now()',
+            default: 'CURRENT_TIMESTAMP',
           },
           {
             name: 'updated_at',
             type: 'timestamp',
-            default: 'now()',
+            default: 'CURRENT_TIMESTAMP',
           },
         ],
       }),
@@ -53,6 +60,6 @@ export class CreateUsers1746240339713 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('users');
+    await queryRunner.dropTable('exercises');
   }
 }

@@ -1,6 +1,23 @@
-import { IsOptional, IsString, IsBoolean } from 'class-validator';
+import { IsInt, IsOptional, IsString, IsBoolean, ValidateNested } from 'class-validator';
+import { Type } from 'class-transformer';
+
+class CreateRoutineExerciseDto {
+  @IsInt()
+  exerciseId: number;
+
+  @IsOptional()
+  @IsInt()
+  defaultSets?: number;
+
+  @IsOptional()
+  @IsInt()
+  defaultReps?: number;
+}
 
 export class CreateRoutineDto {
+  @IsInt() // ✅ UUID 아님!
+  creator_id: number;
+
   @IsString()
   name: string;
 
@@ -12,11 +29,10 @@ export class CreateRoutineDto {
   @IsBoolean()
   is_public?: boolean;
 
-  // 예: creatorId 생략 or JWT에서 꺼낼 수도
   @IsOptional()
-  exercises?: {
-    exerciseId: number;
-    defaultSets?: number;
-    defaultReps?: number;
-  }[];
+  @ValidateNested({ each: true })
+  @Type(() => CreateRoutineExerciseDto)
+  exercises?: CreateRoutineExerciseDto[];
 }
+
+

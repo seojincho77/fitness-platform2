@@ -1,4 +1,28 @@
-import { IsNumber, IsOptional, IsDateString } from 'class-validator';
+import {
+  IsNumber,
+  IsOptional,
+  IsDateString,
+  IsArray,
+  ValidateNested,
+} from 'class-validator';
+import { Type } from 'class-transformer';
+
+export class CreateWorkoutSetDto {
+  @IsNumber()
+  exerciseId: number;
+
+  @IsNumber()
+  set_number: number;
+
+  @IsNumber()
+  reps: number;
+
+  @IsNumber()
+  weight: number;
+
+  @IsNumber()
+  volume: number;
+}
 
 export class CreateWorkoutSessionDto {
   @IsNumber()
@@ -9,5 +33,11 @@ export class CreateWorkoutSessionDto {
   routineId?: number;
 
   @IsDateString()
-  start_time: string; // or Date
+  start_time: string;
+
+  @IsOptional()
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => CreateWorkoutSetDto)
+  sets?: CreateWorkoutSetDto[];
 }

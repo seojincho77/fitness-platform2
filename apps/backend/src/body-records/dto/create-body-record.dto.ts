@@ -1,8 +1,11 @@
-import { IsNumber, IsOptional } from 'class-validator';
+import { IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class CreateBodyRecordDto {
   @IsNumber()
-  userId: number; // user.id
+  userId: number;  // User 엔티티의 id가 int이므로 number로 변경
+
+  @IsString()
+  date: string;
 
   @IsNumber()
   weight: number;
@@ -15,3 +18,5 @@ export class CreateBodyRecordDto {
   @IsNumber()
   skeletal_muscle_mass?: number;
 }
+
+

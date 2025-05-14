@@ -1,4 +1,4 @@
-import { IsNumber, IsOptional, IsString } from 'class-validator';
+import { IsString, IsOptional, IsNumber } from 'class-validator';
 
 export class CreatePostDto {
   @IsNumber()
@@ -6,7 +6,7 @@ export class CreatePostDto {
 
   @IsOptional()
   @IsNumber()
-  workoutSessionId?: number;
+  workout_sessionId?: number;
 
   @IsOptional()
   @IsString()

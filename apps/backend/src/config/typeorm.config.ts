@@ -3,7 +3,7 @@ import * as dotenv from 'dotenv';
 import * as path from 'path';
 
 dotenv.config({
-  path: path.resolve(__dirname, '../../.env.docker'),
+  path: path.resolve(__dirname, '../../../.env.docker'), // dist/src/config 기준 상위 두 단계
 });
 
 import { DataSource } from 'typeorm';
@@ -17,7 +17,7 @@ import { Routine } from '../routines/entities/routine.entity';
 import { WorkoutSession } from '../workouts/entities/workout-session.entity';
 import { WorkoutSet } from '../workouts/entities/workout-set.entity';
 
-export const AppDataSource = new DataSource({
+export default new DataSource({
   type: 'postgres',
   host: process.env.DB_HOST,
   port: Number(process.env.DB_PORT),
@@ -35,6 +35,6 @@ export const AppDataSource = new DataSource({
     WorkoutSession,
     WorkoutSet,
   ],
-  migrations: ['src/migrations/*.ts'],
+  migrations: [path.join(__dirname, '../migrations/*.js')], // ✔ 이 부분이 핵심!
   synchronize: false,
 });

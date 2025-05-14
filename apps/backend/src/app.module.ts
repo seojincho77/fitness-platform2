@@ -11,6 +11,7 @@ import { PostsModule } from './posts/posts.module';
 import { ExercisesModule } from './exercises/exercises.module';
 import { AuthModule } from './auth/auth.module';
 
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -41,7 +42,9 @@ import { AuthModule } from './auth/auth.module';
 
         ExercisesModule,
 
-        AuthModule,
+        AuthModule
+
+       
   ],
   controllers: [AppController],
   providers: [AppService],

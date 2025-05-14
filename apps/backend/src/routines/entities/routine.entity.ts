@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { User } from 'src/users/entities/user.entity';
 
 @Entity('routines')
@@ -8,7 +8,9 @@ export class Routine {
 
   // onDelete: 'CASCADE'는 DB에서 이미 설정
   @ManyToOne(() => User, { onDelete: 'CASCADE', nullable: true })
+  @JoinColumn({ name: 'creator_id' })
   creator?: User;
+
 
   @Column()
   name: string;

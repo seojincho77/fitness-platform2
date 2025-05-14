@@ -1,9 +1,18 @@
-import { Controller, Get, Post, Body, Param, ParseIntPipe, UseGuards, Delete, Req } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  ParseIntPipe,
+  UseGuards,
+  Delete,
+  Req,
+} from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { Request } from 'express';
-
 
 @Controller('users')
 export class UsersController {
@@ -17,8 +26,8 @@ export class UsersController {
   @Get('profile')
   @UseGuards(JwtAuthGuard)
   getProfile(@Req() req: Request) {
-    return req.user; // { userId, email }
-    }
+    return req.user;
+  }
 
   @Get(':id')
   findOne(@Param('id', ParseIntPipe) id: number) {
@@ -33,5 +42,16 @@ export class UsersController {
   @Delete(':id')
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.usersService.remove(id);
+  }
+
+ 
+  @Post(':id/follow')
+  @UseGuards(JwtAuthGuard)
+  followUser(
+    @Req() req: Request,
+    @Param('id', ParseIntPipe) followingId: number,
+  ) {
+    const followerId = (req.user as any).userId;
+    return this.usersService.followUser(followerId, followingId);
   }
 }
